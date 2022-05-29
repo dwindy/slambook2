@@ -6,6 +6,8 @@
 #include <g2o/core/robust_kernel_impl.h>
 #include <iostream>
 
+#include <g2o/types/sba/types_six_dof_expmap.h>
+
 #include "common.h"
 #include "sophus/se3.hpp"
 
@@ -135,7 +137,9 @@ int main(int argc, char **argv) {
 
 void SolveBA(BALProblem &bal_problem) {
     const int point_block_size = bal_problem.point_block_size();
+    cout<<" point_block_size "<<point_block_size;
     const int camera_block_size = bal_problem.camera_block_size();
+    cout<<" camera_block_size "<<camera_block_size;
     double *points = bal_problem.mutable_points();
     double *cameras = bal_problem.mutable_cameras();
 
@@ -151,6 +155,7 @@ void SolveBA(BALProblem &bal_problem) {
 
     /// build g2o problem
     const double *observations = bal_problem.observations();
+    cout<<" observations "<<camera_block_size<<endl;
     // vertex
     vector<VertexPoseAndIntrinsics *> vertex_pose_intrinsics;
     vector<VertexPoint *> vertex_points;
